@@ -561,6 +561,29 @@ BOOST_AUTO_TEST_CASE(test_configParser_invalid_wrong_type) {
     BOOST_CHECK_EQUAL(parseResult.getKeysInvalidData()[0], "input.invert_y");
 }
 
+BOOST_AUTO_TEST_CASE(test_configParser_valid_bool_string_values) {
+    auto cfg = getValidConfig();
+    cfg["input"]["invert_y"] = "yes";
+
+    TempFile tempFile;
+    tempFile.append(cfg);
+
+    RWConfigParser cfgParser;
+    auto [cfgLayer, parseResult] = cfgParser.loadFile(tempFile.path());
+
+    BOOST_CHECK(parseResult.isValid());
+    BOOST_REQUIRE(cfgLayer.invertY.has_value());
+    BOOST_CHECK(*cfgLayer.invertY);
+
+    cfg["input"]["invert_y"] = "off";
+    tempFile.write(cfg);
+
+    std::tie(cfgLayer, parseResult) = cfgParser.loadFile(tempFile.path());
+    BOOST_CHECK(parseResult.isValid());
+    BOOST_REQUIRE(cfgLayer.invertY.has_value());
+    BOOST_CHECK(!*cfgLayer.invertY);
+}
+
 BOOST_AUTO_TEST_CASE(test_configParser_invalid_nodir) {
     // Test reading non-existing configuration file in non-existing directory
     TempDir tempDir;
