@@ -96,6 +96,9 @@ set(RWENGINE_SOURCES
     src/loaders/WeatherLoader.cpp
     src/loaders/WeatherLoader.hpp
 
+    src/multiplayer/GangSystem.cpp
+    src/multiplayer/GangSystem.hpp
+
     src/objects/CharacterObject.cpp
     src/objects/CharacterObject.hpp
     src/objects/CutsceneObject.cpp
