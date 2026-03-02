@@ -29,19 +29,19 @@ class OpenrwConan(ConanFile):
 
     _rw_dependencies = {
         'game': (
-            'openal/1.19.0@bincrafters/stable',
-            'bullet3/2.87@bincrafters/stable',
-            'glm/0.9.9.1@g-truc/stable',
-            'ffmpeg/4.0.2@bincrafters/stable',
-            'sdl2/2.0.9@bincrafters/stable',
-            'boost/1.68.0@conan/stable',
+            'openal/1.22.2',
+            'bullet3/3.25',
+            'glm/1.0.1',
+            'ffmpeg/7.1',
+            'sdl/2.32.0',
+            'boost/1.86.0',
             'bzip2/1.0.8@conan/stable',
         ),
         'viewer': (
-            'qt/5.12.0@bincrafters/stable',
+            'qt/5.15.14',
         ),
         'tools': (
-            'freetype/2.9.0@bincrafters/stable',
+            'freetype/2.13.3',
         ),
     }
 
