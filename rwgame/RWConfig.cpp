@@ -1,5 +1,7 @@
 #include "RWConfig.hpp"
 
+#include <algorithm>
+#include <cctype>
 #include <iostream>
 
 #include <rw/debug.hpp>
@@ -251,9 +253,22 @@ struct Translator<bool> {
     using internal_type = std::string;
     using external_type = bool;
     boost::optional<external_type> get_value(const internal_type &str) {
+        auto value = stripComments(str);
+        auto toLower = [](unsigned char c) {
+            return static_cast<char>(std::tolower(c));
+        };
+        std::transform(value.begin(), value.end(), value.begin(), toLower);
+
+        if (value == "true" || value == "yes" || value == "on") {
+            return true;
+        }
+        if (value == "false" || value == "no" || value == "off") {
+            return false;
+        }
+
         boost::optional<external_type> res;
         try {
-            res = std::stoi(stripComments(str)) != 0;
+            res = std::stoi(value) != 0;
         } catch (std::invalid_argument &) {
         }
         return res;
