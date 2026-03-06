@@ -10,6 +10,7 @@ set(TESTS
     Data
     FileIndex
     GameData
+    GangSystem
     GameWorld
     Garage
     HitTest
